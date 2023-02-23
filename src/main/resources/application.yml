@@ -1,0 +1,7 @@
+server:
+  port: ${SERVER_PORT:8089}
+spring:
+  application:
+    name: cloudlab
+  profiles:
+    active: ${PROFILE:dev}

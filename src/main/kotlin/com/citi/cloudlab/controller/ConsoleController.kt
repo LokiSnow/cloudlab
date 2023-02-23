@@ -1,0 +1,15 @@
+package com.citi.cloudlab.controller
+
+import com.citi.cloudlab.response.BaseResponse
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+
+
+@RestController
+@RequestMapping("/console")
+class ConsoleController {
+
+    @GetMapping("/dashboard")
+    suspend fun dashboard() :BaseResponse<Any> = BaseResponse("Hello World!")
+}

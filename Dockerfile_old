@@ -1,0 +1,11 @@
+FROM amazoncorretto:17-alpine
+
+WORKDIR /app
+COPY build/libs/runner.jar /app/
+EXPOSE 8689
+
+ENV SERVER_PORT=8689 \
+    PROFILE=dev \
+	LOG_PATH=/data/logs/cloudlab
+
+ENTRYPOINT ["java", "-jar", "runner.jar"]
