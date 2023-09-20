@@ -15,7 +15,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 val ACCESS_KEY_ID: String by project
 val SECRET_ACCESS_KEY: String by project
-println("$ACCESS_KEY_ID == $SECRET_ACCESS_KEY")
+//println("$ACCESS_KEY_ID == $SECRET_ACCESS_KEY")
 
 repositories {
     maven("s3://nebula-s3-repo/snapshots/") {
