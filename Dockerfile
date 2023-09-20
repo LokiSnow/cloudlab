@@ -17,11 +17,11 @@ COPY localtime /etc/
 
 VOLUME /data
 
-EXPOSE 8689
+EXPOSE 8089
 
-ENV SERVER_PORT=8689 \
+ENV SERVER_PORT=8089 \
     PROFILE=dev \
 	LOG_PATH=/data/logs/cloudlab \
-    TIME_ZONE=Asia/Shanghai
+    TZ=Asia/Shanghai
 
 ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]

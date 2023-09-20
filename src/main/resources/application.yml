@@ -5,3 +5,6 @@ spring:
     name: cloudlab
   profiles:
     active: ${PROFILE:dev}
+logging:
+  file:
+    path: ${LOG_PATH:/data/logs}
