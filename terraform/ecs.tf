@@ -20,6 +20,54 @@ resource "aws_ecs_service" "service" {
   }
 }
 
+resource "aws_iam_policy" "param_policy" {
+  #name = "param_policy"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid = "VisualEditor0",
+        Effect    = "Allow"
+        Action   = "ssm:GetParameters"
+        Resource = "arn:aws:ssm:${var.aws_region}:${var.aws_uid}:parameter/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "ecs_tasks_role" {
+  name = "ecs_tasks_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      },
+    ]
+  })
+  managed_policy_arns = [aws_iam_policy.param_policy.arn,
+    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  ]
+}
+
+resource "aws_ssm_parameter" "access_key" {
+  name = "ACCESS_KEY_ID"
+  value = var.aws_access_key
+  type = "String"
+}
+
+resource "aws_ssm_parameter" "secret_key" {
+  name = "SECRET_ACCESS_KEY"
+  value = var.aws_secret_key
+  type = "String"
+}
+
 resource "aws_ecs_task_definition" "td" {
   container_definitions = jsonencode([
     {
@@ -41,11 +89,11 @@ resource "aws_ecs_task_definition" "td" {
         },
         {
           name = "ACCESS_KEY_ID"
-          value = var.aws_access_key
+          value = "arn:aws:ssm:${var.aws_region}:${var.aws_uid}:parameter/ACCESS_KEY_ID"
         },
         {
           name = "SECRET_ACCESS_KEY"
-          value = var.aws_secret_key
+          value = "arn:aws:ssm:${var.aws_region}:${var.aws_uid}:parameter/SECRET_ACCESS_KEY"
         }
       ]
       logConfiguration = {
@@ -65,6 +113,6 @@ resource "aws_ecs_task_definition" "td" {
   cpu                = "256"
   memory             = "512"
   network_mode       = "awsvpc"
-  task_role_arn      = "arn:aws:iam::${var.aws_uid}:role/ecsTaskExecutionRole"
-  execution_role_arn = "arn:aws:iam::${var.aws_uid}:role/ecsTaskExecutionRole"
+  task_role_arn      = aws_iam_role.ecs_tasks_role.arn
+  execution_role_arn = aws_iam_role.ecs_tasks_role.arn
 }
