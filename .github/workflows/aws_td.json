@@ -21,11 +21,11 @@
         },
         {
           "name": "ACCESS_KEY_ID",
-          "value": "AKIAVAQDQFGD5ORT6W2W"
+          "value": "arn:aws:ssm:ap-southeast-1:344678476167:parameter/ACCESS_KEY_ID"
         },
         {
           "name": "SECRET_ACCESS_KEY",
-          "value": "bLU6dM5tHdC86mREVresiX7JA+P37OWUhTcqOJsD"
+          "value": "arn:aws:ssm:ap-southeast-1:344678476167:parameter/SECRET_ACCESS_KEY"
         }
       ],
       "mountPoints": [],
@@ -42,8 +42,8 @@
     }
   ],
   "family": "cloudlab_td",
-  "taskRoleArn": "arn:aws:iam::344678476167:role/ecsTaskExecutionRole",
-  "executionRoleArn": "arn:aws:iam::344678476167:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::344678476167:role/ecs_tasks_role",
+  "executionRoleArn": "arn:aws:iam::344678476167:role/ecs_tasks_role",
   "networkMode": "awsvpc",
   "volumes": [],
   "status": "ACTIVE",
