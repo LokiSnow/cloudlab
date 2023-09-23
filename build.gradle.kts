@@ -18,12 +18,6 @@ val SECRET_ACCESS_KEY: String by project
 //println("$ACCESS_KEY_ID == $SECRET_ACCESS_KEY")
 
 repositories {
-    maven("s3://nebula-s3-repo/snapshots/") {
-        credentials(AwsCredentials::class) {
-            accessKey = ACCESS_KEY_ID
-            secretKey = SECRET_ACCESS_KEY
-        }
-    }
     mavenCentral()
     //maven("https://maven.aliyun.com/nexus/content/groups/public")
 }
@@ -34,7 +28,8 @@ val okHttpVersion = "5.0.0-alpha.10" //aws sdk kotlin requires OkHttp 5.0.0-alph
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-aop")
-    //implementation("io.awspring.cloud:spring-cloud-aws-starter-dynamodb")
+    implementation("software.amazon.awssdk:dynamodb")
+    implementation("software.amazon.awssdk:dynamodb-enhanced")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -47,9 +42,8 @@ dependencies {
             strictly(okHttpVersion)
         }
     }*/
-    implementation("com.nebula:nebula-common:0.0.1-SNAPSHOT")
-    implementation("com.nebula:nebula-dao:0.0.1-SNAPSHOT")
     implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")

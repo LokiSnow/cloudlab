@@ -1,3 +1,12 @@
+
+variable "vpc_id" {}
+variable "pubSN1" {}
+variable "pubSN2" {}
+variable "pubSN3" {}
+variable "security_group" {}
+variable "ecs_instance_role_name" {}
+variable "ecs_instance_profile_name" {}
+
 variable "aws_uid" {
   description = "AWS user id"
   type        = string
@@ -8,18 +17,6 @@ variable "aws_region" {
   description = "AWS region"
   type        = string
   default     = "ap-southeast-1"
-}
-
-variable "aws_access_key" {
-  description = "AWS access key"
-  type        = string
-  default     = ""
-}
-
-variable "aws_secret_key" {
-  description = "AWS access key"
-  type        = string
-  default     = ""
 }
 
 variable "project" {

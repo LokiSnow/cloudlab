@@ -1,9 +1,9 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:344678476167:task-definition/cloudlab_td",
+  "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:497680840552:task-definition/cloudlab",
   "containerDefinitions": [
     {
-      "name": "cloudlab_td",
-      "image": "344678476167.dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab",
+      "name": "cloudlab",
+      "image": ".dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab",
       "cpu": 256,
       "memory": 512,
       "portMappings": [
@@ -21,11 +21,11 @@
         },
         {
           "name": "ACCESS_KEY_ID",
-          "value": "arn:aws:ssm:ap-southeast-1:344678476167:parameter/ACCESS_KEY_ID"
+          "value": "arn:aws:ssm:ap-southeast-1::parameter/ACCESS_KEY_ID"
         },
         {
           "name": "SECRET_ACCESS_KEY",
-          "value": "arn:aws:ssm:ap-southeast-1:344678476167:parameter/SECRET_ACCESS_KEY"
+          "value": "arn:aws:ssm:ap-southeast-1::parameter/SECRET_ACCESS_KEY"
         }
       ],
       "mountPoints": [],
@@ -34,17 +34,16 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-create-group": "true",
-          "awslogs-group": "/ecs/cloudlab_td",
+          "awslogs-group": "/ecs/cloudlab",
           "awslogs-region": "ap-southeast-1",
           "awslogs-stream-prefix": "ecs"
         }
       }
     }
   ],
-  "family": "cloudlab_td",
-  "taskRoleArn": "arn:aws:iam::344678476167:role/ecs_tasks_role",
-  "executionRoleArn": "arn:aws:iam::344678476167:role/ecs_tasks_role",
-  "networkMode": "awsvpc",
+  "family": "cloudlab",
+  "taskRoleArn": "arn:aws:iam::497680840552:role/ecs_tasks_role",
+  "executionRoleArn": "arn:aws:iam::497680840552:role/ecs_tasks_role",
   "volumes": [],
   "status": "ACTIVE",
   "requiresAttributes": [
@@ -55,22 +54,10 @@
       "name": "ecs.capability.execution-role-awslogs"
     },
     {
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
       "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
-      "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "name": "ecs.capability.task-eni"
     },
     {
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
@@ -78,13 +65,8 @@
   ],
   "placementConstraints": [],
   "compatibilities": [
-    "EC2",
-    "FARGATE"
+    "EXTERNAL",
+    "EC2"
   ],
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "cpu": "256",
-  "memory": "512",
   "tags": []
 }

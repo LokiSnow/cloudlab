@@ -1,8 +1,8 @@
 package com.citi.cloudlab.controller
 
+import com.citi.cloudlab.dao.model.Post
 import com.citi.cloudlab.response.BaseResponse
 import com.citi.cloudlab.service.PostService
-import com.nebula.dao.model.Post
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,6 +1,7 @@
 package com.citi.cloudlab.service
 
-import com.nebula.dao.model.Post
+import com.citi.cloudlab.dao.model.Post
+
 
 /**
  *

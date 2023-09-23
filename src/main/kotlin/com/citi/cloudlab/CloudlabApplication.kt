@@ -1,7 +1,7 @@
 package com.citi.cloudlab
 
-import com.nebula.common.log.BasicDigestLogInterceptor
-import com.nebula.dao.config.DynamodbConfiguration
+import com.citi.cloudlab.common.log.BasicDigestLogInterceptor
+import com.citi.cloudlab.dao.config.DynamodbConfiguration
 import org.apache.commons.lang3.time.StopWatch
 import org.slf4j.LoggerFactory
 import org.springframework.aop.Advisor

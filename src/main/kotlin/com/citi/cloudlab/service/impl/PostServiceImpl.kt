@@ -1,8 +1,8 @@
 package com.citi.cloudlab.service.impl
 
+import com.citi.cloudlab.dao.model.Post
 import com.citi.cloudlab.service.PostService
-import com.nebula.dao.model.Post
-import com.nebula.dao.repository.PostRepository
+import com.citi.cloudlab.dao.repository.PostRepository
 import org.springframework.stereotype.Component
 
 /**
