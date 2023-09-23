@@ -6,6 +6,14 @@ provider "aws" {
 
 module "iam" {
   source = "./iam"
+  aws_uid = var.aws_uid
+  aws_region = var.aws_region
+}
+
+module "ssm" {
+  source = "./ssm"
+  aws_access_key = var.aws_access_key
+  aws_secret_key = var.aws_secret_key
 }
 
 module "vpc" {
@@ -14,6 +22,7 @@ module "vpc" {
 
 module "ec2" {
   source = "./ec2"
+  project = var.project
   vpc_id                      = module.vpc.id
   security_group              = module.vpc.security_group
   pubSN1                      = module.vpc.pubSN1
@@ -25,6 +34,9 @@ module "ec2" {
 
 module "ecs" {
   source = "./ecs"
+  project = var.project
+  aws_uid = var.aws_uid
+  aws_region = var.aws_region
   vpc_id                      = module.vpc.id
   security_group              = module.vpc.security_group
   pubSN1                      = module.vpc.pubSN1

@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "cloudlab",
-      "image": ".dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab",
+      "image": "497680840552.dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab",
       "cpu": 256,
       "memory": 512,
       "portMappings": [
@@ -21,11 +21,11 @@
         },
         {
           "name": "ACCESS_KEY_ID",
-          "value": "arn:aws:ssm:ap-southeast-1::parameter/ACCESS_KEY_ID"
+          "value": "arn:aws:ssm:ap-southeast-1:497680840552:parameter/ACCESS_KEY_ID"
         },
         {
           "name": "SECRET_ACCESS_KEY",
-          "value": "arn:aws:ssm:ap-southeast-1::parameter/SECRET_ACCESS_KEY"
+          "value": "arn:aws:ssm:ap-southeast-1:497680840552:parameter/SECRET_ACCESS_KEY"
         }
       ],
       "mountPoints": [],
@@ -54,10 +54,16 @@
       "name": "ecs.capability.execution-role-awslogs"
     },
     {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
       "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
