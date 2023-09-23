@@ -1,5 +1,7 @@
-Reference:
+Fargate Reference:
 https://github.com/scalablescripts/node-terraform
+Ec2 Reference:
+https://github.com/meshhq/terraform-meshhq-ecs-cluster/tree/master
 
 Install:
 https://developer.hashicorp.com/terraform/downloads?product_intent=terraform
