@@ -5,6 +5,8 @@ https://github.com/meshhq/terraform-meshhq-ecs-cluster/tree/master
 
 Install:
 https://developer.hashicorp.com/terraform/downloads?product_intent=terraform
+Docs:
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
 1.Create terraform package, and init terraform  
 #terraform init  
@@ -25,3 +27,6 @@ aws_access_key = "---"
 aws_secret_key = "---"  
 Task definition env setting:  
 https://repost.aws/zh-Hans/knowledge-center/ecs-data-security-container-task  
+
+auto scaling group -> launch template -> user_data setting:
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html

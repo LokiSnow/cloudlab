@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "ecs" {
-  name = "${var.project}_cluster"
+  name = "ecs_cluster"
 }
 
 resource "aws_ecs_service" "service" {
