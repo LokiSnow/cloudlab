@@ -4,6 +4,7 @@ variable "pubSN2" {}
 variable "pubSN3" {}
 variable "security_group" {}
 variable "ecs_target_group_arn" {}
+variable "ecs_autoscaling_group_arn" {}
 variable "ecs_service_role_arn" {}
 variable "ecs_tasks_role_arn" {}
 

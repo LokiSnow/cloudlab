@@ -1,5 +1,35 @@
 resource "aws_ecs_cluster" "ecs" {
   name = "ecs_cluster"
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+}
+resource "aws_ecs_cluster_capacity_providers" "capacity_providers" {
+  cluster_name = aws_ecs_cluster.ecs.name
+
+  capacity_providers = [aws_ecs_capacity_provider.capacity-provider.name]
+
+  default_capacity_provider_strategy {
+    base              = 1
+    weight            = 2
+    capacity_provider = aws_ecs_capacity_provider.capacity-provider.name
+  }
+}
+
+resource "aws_ecs_capacity_provider" "capacity-provider" {
+  name = "${var.project}-capacity-provider"
+
+  auto_scaling_group_provider {
+    auto_scaling_group_arn         = var.ecs_autoscaling_group_arn
+
+    managed_scaling {
+      maximum_scaling_step_size = 1000
+      minimum_scaling_step_size = 1
+      status                    = "ENABLED"
+      target_capacity           = 10
+    }
+  }
 }
 
 resource "aws_ecs_service" "service" {

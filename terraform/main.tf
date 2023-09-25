@@ -43,6 +43,7 @@ module "ecs" {
   pubSN2                      = module.vpc.pubSN2
   pubSN3                      = module.vpc.pubSN3
   ecs_target_group_arn        = module.ec2.ecs_target_group_arn
+  ecs_autoscaling_group_arn   = module.ec2.ecs_autoscaling_group_arn
   ecs_service_role_arn        = module.iam.ecs_service_role_arn
   ecs_tasks_role_arn          = module.iam.ecs_tasks_role_arn
 }

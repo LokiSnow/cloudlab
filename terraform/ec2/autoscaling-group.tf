@@ -1,6 +1,6 @@
 resource "aws_launch_template" "ecs-launch-template" {
   name_prefix   = var.project
-  image_id      = "ami-0eeadc4ab092fef70"
+  image_id      = "ami-0a40ed7e422ec3f7b"
   instance_type = "t3.micro" # 2cpu, 1G mem, 30GiB EBS, 750 hours
   key_name      = "${var.project}_pair"
   user_data     = filebase64("${path.module}/user-data.sh")
@@ -11,6 +11,7 @@ resource "aws_launch_template" "ecs-launch-template" {
     associate_public_ip_address = true
     security_groups             = [var.security_group]
   }
+
 }
 
 resource "aws_autoscaling_group" "ecs-autoscaling-group" {
@@ -24,4 +25,14 @@ resource "aws_autoscaling_group" "ecs-autoscaling-group" {
     id = aws_launch_template.ecs-launch-template.id
     version = "$Latest"
   }
+
+  tag {
+    key                 = "AmazonECSManaged"
+    value               = true
+    propagate_at_launch = true
+  }
+}
+
+output "ecs_autoscaling_group_arn" {
+  value = aws_autoscaling_group.ecs-autoscaling-group.arn
 }
