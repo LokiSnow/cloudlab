@@ -5,7 +5,9 @@ variable "pubSN2" {}
 variable "pubSN3" {}
 variable "security_group" {}
 variable "ecs_instance_role_name" {}
-variable "ecs_instance_profile_name" {}
+variable "ecs_instance_profile_arn" {}
+variable "ecs_cluster" {}
+variable "ecs_cluster_name" {}
 
 variable "project" {
   description = "Tags to set for all resources"

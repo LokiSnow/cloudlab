@@ -4,7 +4,7 @@ resource "aws_iam_instance_profile" "ecs_instance_profile" {
   role = aws_iam_role.ecs_instance_role.name
 }
 
-output "instance_profile_name" {
-  value = aws_iam_instance_profile.ecs_instance_profile.name
+output "instance_profile_arn" {
+  value = aws_iam_instance_profile.ecs_instance_profile.arn
 }
 

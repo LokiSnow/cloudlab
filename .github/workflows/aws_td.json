@@ -4,13 +4,14 @@
     {
       "name": "cloudlab",
       "image": "497680840552.dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab",
-      "cpu": 256,
+      "cpu": 0,
       "memory": 512,
       "portMappings": [
         {
           "containerPort": 8089,
-          "hostPort": 8089,
-          "protocol": "tcp"
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
         }
       ],
       "essential": true,
@@ -71,7 +72,9 @@
   ],
   "placementConstraints": [],
   "compatibilities": [
-    "EXTERNAL",
+    "EC2"
+  ],
+  "requiresCompatibilities": [
     "EC2"
   ],
   "tags": []

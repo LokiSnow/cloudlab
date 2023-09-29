@@ -6,7 +6,11 @@ variable "security_group" {}
 variable "ecs_target_group_arn" {}
 variable "ecs_autoscaling_group_arn" {}
 variable "ecs_service_role_arn" {}
+variable "ecs_service_role" {}
 variable "ecs_tasks_role_arn" {}
+variable "ecs_cluster_name" {}
+variable "ecs_cluster_arn" {}
+variable "ecs_autoscaling_group" {}
 
 variable "aws_uid" {
   description = "AWS user id"

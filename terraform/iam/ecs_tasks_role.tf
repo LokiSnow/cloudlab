@@ -29,7 +29,8 @@ resource "aws_iam_role" "ecs_tasks_role" {
   })
   managed_policy_arns = [aws_iam_policy.param_policy.arn,
     "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
-    "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+    "arn:aws:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"
   ]
 }
 

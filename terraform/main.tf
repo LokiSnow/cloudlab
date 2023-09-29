@@ -4,6 +4,10 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
+resource "aws_ecs_cluster" "ecs" {
+  name = "${var.project}_cluster"
+}
+
 module "iam" {
   source = "./iam"
   aws_uid = var.aws_uid
@@ -29,7 +33,9 @@ module "ec2" {
   pubSN2                      = module.vpc.pubSN2
   pubSN3                      = module.vpc.pubSN3
   ecs_instance_role_name      = module.iam.ecs_instance_role_name
-  ecs_instance_profile_name   = module.iam.instance_profile_name
+  ecs_instance_profile_arn    = module.iam.instance_profile_arn
+  ecs_cluster                 = aws_ecs_cluster.ecs
+  ecs_cluster_name                 = aws_ecs_cluster.ecs.name
 }
 
 module "ecs" {
@@ -45,5 +51,9 @@ module "ecs" {
   ecs_target_group_arn        = module.ec2.ecs_target_group_arn
   ecs_autoscaling_group_arn   = module.ec2.ecs_autoscaling_group_arn
   ecs_service_role_arn        = module.iam.ecs_service_role_arn
+  ecs_service_role            = module.iam.ecs_service_role
   ecs_tasks_role_arn          = module.iam.ecs_tasks_role_arn
+  ecs_cluster_arn             = aws_ecs_cluster.ecs.arn
+  ecs_cluster_name            = aws_ecs_cluster.ecs.name
+  ecs_autoscaling_group       = module.ec2.ecs_autoscaling_group
 }
