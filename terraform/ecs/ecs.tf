@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "td" {
   container_definitions = jsonencode([
     {
       name         = var.project
-      image        = "${var.aws_uid}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project}:6207891d96bdb5f7f4fe1254707fcbbdea93bcb3"
+      image        = "${var.aws_uid}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project}"
       cpu          = 0
       memory       = 512
       essential    = true
