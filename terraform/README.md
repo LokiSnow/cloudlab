@@ -72,8 +72,16 @@ https://repost.aws/knowledge-center/ecs-instance-unable-join-cluster
 /var/log/ecs/exec/085834c623f94319bf3fed1a112f499a/cloudlab
 
 [ec2-user@ip-10-0-2-203 cloudlab]$ cat errors.log
-2023-09-29 16:35:36 ERROR [SetWebSocket @ controlchannel.go.93] [ssm-agent-worker] [MessageService] [MGSInteractor] Failed to get controlchannel token, error: CreateControlChannel failed with error: createControlChannel request failed: unexpected response from the service <AccessDeniedException>
-  <Message>User: arn:aws:sts::497680840552:assumed-role/ecs_tasks_role/085834c623f94319bf3fed1a112f499a is not authorized to perform: ssmmessages:CreateControlChannel on resource: arn:aws:ecs:ap-southeast-1:497680840552:task/cloudlab_cluster/085834c623f94319bf3fed1a112f499a because no identity-based policy allows the ssmmessages:CreateControlChannel action</Message>
+2023-09-29 16:35:36 ERROR [SetWebSocket @ controlchannel.go.93] [ssm-agent-worker] [MessageService] [MGSInteractor] 
+Failed to get controlchannel token, error: CreateControlChannel failed with error: createControlChannel request failed: unexpected response from the service <AccessDeniedException>
+  <Message>User: arn:aws:sts::***:assumed-role/ecs_tasks_role/085834c623f94319bf3fed1a112f499a is not authorized to perform: ssmmessages:CreateControlChannel on resource: arn:aws:ecs:ap-southeast-1:***:task/cloudlab_cluster/085834c623f94319bf3fed1a112f499a 
+because no identity-based policy allows the ssmmessages:CreateControlChannel action</Message>
 </AccessDeniedException>
 ```
 Solution: add "arn:aws:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy" to task role
+```less
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.citi.cloudlab.dao.config.DynamodbInitialization]: Factory method 'dynamodbInitialization' 
+threw exception with message: User: *** is not authorized to perform: dynamodb:ListTables on resource: arn:aws:dynamodb:ap-southeast-1:***:table
+/* because no identity-based policy allows the dynamodb:ListTables action (Service: DynamoDb, Status Code: 400, Request ID: 7G4V3ICBHET0L1DAE8CJT4437VVV4KQNSO5AEMVJF66Q9ASUAAJG)
+```
+Solution: add "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess" to task role
