@@ -6,7 +6,7 @@ resource "aws_alb" "ecs_load_balancer" {
 
 resource "aws_alb_target_group" "ecs_target_group" {
   name                = "${var.project}-alb-target-group"
-  port                = "80"
+  port                = "8089"
   protocol            = "HTTP"
   vpc_id              = var.vpc_id
 
@@ -24,7 +24,7 @@ resource "aws_alb_target_group" "ecs_target_group" {
 
 resource "aws_alb_listener" "alb-listener" {
   load_balancer_arn = aws_alb.ecs_load_balancer.arn
-  port              = "80"
+  port              = "8089"
   protocol          = "HTTP"
 
   default_action {

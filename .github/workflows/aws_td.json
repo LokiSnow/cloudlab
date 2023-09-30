@@ -3,13 +3,13 @@
   "containerDefinitions": [
     {
       "name": "cloudlab",
-      "image": "497680840552.dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab",
+      "image": "497680840552.dkr.ecr.ap-southeast-1.amazonaws.com/cloudlab:latest",
       "cpu": 0,
       "memory": 512,
       "portMappings": [
         {
           "containerPort": 8089,
-          "hostPort": 80,
+          "hostPort": 8089,
           "protocol": "tcp",
           "appProtocol": "http"
         }

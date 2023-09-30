@@ -17,9 +17,9 @@ resource "aws_launch_template" "ecs-launch-template" {
 resource "aws_autoscaling_group" "ecs-autoscaling-group" {
   depends_on = [var.ecs_cluster, aws_launch_template.ecs-launch-template, aws_alb.ecs_load_balancer]
   name                        = "${var.project}_autoscaling-group"
-  max_size                    = "2"
+  max_size                    = "1"
   min_size                    = "1"
-  desired_capacity            = "2"
+  desired_capacity            = "1"
   vpc_zone_identifier         = [var.pubSN1, var.pubSN2, var.pubSN3]
   health_check_type           = "EC2"
   launch_template {

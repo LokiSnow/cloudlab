@@ -6,7 +6,7 @@ resource "aws_ecs_cluster_capacity_providers" "capacity_providers" {
 
   default_capacity_provider_strategy {
     base              = 1
-    weight            = 2
+    weight            = 1
     capacity_provider = aws_ecs_capacity_provider.capacity-provider.name
   }
 }
@@ -19,10 +19,10 @@ resource "aws_ecs_capacity_provider" "capacity-provider" {
     auto_scaling_group_arn         = var.ecs_autoscaling_group_arn
 
     managed_scaling {
-      maximum_scaling_step_size = 3
+      maximum_scaling_step_size = 1
       minimum_scaling_step_size = 1
       status                    = "ENABLED"
-      target_capacity           = 3
+      target_capacity           = 1
     }
   }
 }
@@ -51,14 +51,14 @@ resource "aws_ecs_task_definition" "td" {
   container_definitions = jsonencode([
     {
       name         = var.project
-      image        = "${var.aws_uid}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project}"
+      image        = "${var.aws_uid}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project}:latest"
       cpu          = 0
       memory       = 512
       essential    = true
       portMappings = [
         {
           containerPort = 8089
-          hostPort      = 80
+          hostPort      = 8089
           protocol= "tcp"
           appProtocol= "http"
         }
