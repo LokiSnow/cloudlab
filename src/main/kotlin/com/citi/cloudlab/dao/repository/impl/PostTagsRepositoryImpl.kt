@@ -5,7 +5,6 @@ import com.citi.cloudlab.dao.model.PostTags
 import com.citi.cloudlab.dao.model.tagId
 import com.citi.cloudlab.dao.repository.PostRepository
 import com.citi.cloudlab.dao.repository.PostTagsRepository
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -39,6 +38,9 @@ class PostTagsRepositoryImpl(
         mappedTable = ddb.table(PostTags::class.java.simpleName, tableSchema)
     }
 
+    override suspend fun save(postId: String, tagId: String) {
+        mappedTable.putItem(PostTags(tagId, postId))
+    }
     override suspend fun save(postId: String, tags: List<String>?){
         if (tags.isNullOrEmpty()) return
 

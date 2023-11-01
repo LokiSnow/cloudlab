@@ -43,7 +43,7 @@ class CloudlabApplication {
     @Bean
     fun daoDigestLogger(): Advisor {
         val pointcut = AspectJExpressionPointcut()
-        pointcut.expression = "within(com.nebula.dao..*)"
+        pointcut.expression = "within(com.citi.cloudlab.dao..*)"
         val daoDigestLogger = BasicDigestLogInterceptor("DAO-DIGEST-LOGGER", true)
         return DefaultPointcutAdvisor(pointcut, daoDigestLogger)
     }

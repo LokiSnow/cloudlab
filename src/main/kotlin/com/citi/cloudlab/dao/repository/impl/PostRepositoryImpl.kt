@@ -1,5 +1,6 @@
 package com.citi.cloudlab.dao.repository.impl
 
+import com.citi.cloudlab.common.constant.Constants
 import com.citi.cloudlab.common.constant.Constants.Companion.CATEGORY_INDEX
 import com.citi.cloudlab.dao.model.Post
 import com.citi.cloudlab.dao.repository.PostRepository
@@ -16,19 +17,18 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue
 @Component
 class PostRepositoryImpl() : BaseRepositoryImpl<Post>(Post::class.java), PostRepository {
 
-    private val postListProjection = listOf("id", "previewContent", "title", "categoryCode", "author", "tags", "likes", "createdTime")
     override suspend fun findByCategory(categoryCode: String, lastEvaluatedKey: String?) : List<Post> {
         return mappedTable.index(CATEGORY_INDEX).query { builder ->
             builder.limit(20)
                 .queryConditional(QueryConditional.keyEqualTo(Key.builder().partitionValue(categoryCode).build()))
                 .scanIndexForward(false)
-                .attributesToProject(postListProjection)
+                .attributesToProject(Constants.postListProjection)
             lastEvaluatedKey?.let {
                 builder.exclusiveStartKey(mapOf("categoryCode" to AttributeValue.fromS(categoryCode), "id" to AttributeValue.fromS(lastEvaluatedKey)))
             }
         }.first().items()
     }
 
-    override fun getListProjection(): List<String> = postListProjection
+    override fun getListProjection(): List<String> = Constants.postListProjection
 }
 

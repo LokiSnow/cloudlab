@@ -8,4 +8,5 @@ import com.citi.cloudlab.dao.model.Comment
  *@date 2023/5/11
  */
 interface CommentRepository : BaseRepository<Comment> {
+    suspend fun findByPostId(postId: String, lastCommentId: String?): List<Comment>
 }

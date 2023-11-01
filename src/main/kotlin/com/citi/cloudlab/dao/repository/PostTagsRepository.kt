@@ -10,5 +10,8 @@ import com.citi.cloudlab.dao.model.Post
  */
 interface PostTagsRepository {
     suspend fun save(postId: String, tags: List<String>?)
+
+    suspend fun save(postId: String, tagId: String)
     suspend fun findPosts(tagId: String, lastPostId: String?): List<Post>
+
 }

@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient
  *@date 2023/4/20
  */
 @Configuration
-@ComponentScan(value = ["com.nebula.dao"])
+@ComponentScan(value = ["com.citi.cloudlab.dao"])
 open class DynamodbConfiguration {
 	@Bean
 	open fun dynamoDbClient(): DynamoDbClient? {

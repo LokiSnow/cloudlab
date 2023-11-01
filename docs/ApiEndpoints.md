@@ -87,9 +87,6 @@ Creates a new category with the provided details.
 }
 ```
 
-- `GET /categories/{id}`: 
-Returns the details of the category with the specified ID.
-
 - `PUT /categories/{id}`: 
 Updates the details of the category with the specified ID.
 
@@ -121,15 +118,12 @@ Returns a list of all posts under the specified tag.
 --- 
 ## Comment endpoints
 
-- `GET /comments`: 
-Returns a list of all comments.
-
 - `POST /comments`: 
 Creates a new comment with the provided details;
 increase post comments count.
 
-- `GET /comments/{id}`: 
-Returns the details of the comment with the specified ID.
+- `GET /comments/{postId}`: 
+Returns the details of the comment with the specified Post ID.
 
 - `PUT /comments/{id}`: 
 Updates the details of the comment with the specified ID.
