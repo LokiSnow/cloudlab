@@ -69,7 +69,7 @@ Returns a list of all posts with specified category id.
 - `PUT /posts/{id}/like`: 
 Increases the number of likes of the post with the specified ID by 1.
 
-- `POST /posts/{id}/tags`:
+- `POST /posts/{id}/addTag`:
 add tags for posts
 
 --- 
