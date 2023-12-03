@@ -1,7 +1,6 @@
 package com.citi.cloudlab.service.impl
 
 import com.citi.cloudlab.dao.model.Post
-import com.citi.cloudlab.dao.model.PostTags
 import com.citi.cloudlab.dao.model.Tag
 import com.citi.cloudlab.service.PostService
 import com.citi.cloudlab.dao.repository.PostRepository
@@ -42,7 +41,7 @@ class PostServiceImpl(
         var post = repository.findById(id)
         post.apply {
             tags = tags?: ArrayList()
-            tags = tags?.plus(tag.description!!)
+            tags = tags?.plus(tag.name!!)
         }
 
         postTagsRepository.save(id, tag.id!!)

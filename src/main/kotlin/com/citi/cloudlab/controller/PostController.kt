@@ -50,5 +50,5 @@ class PostController(
     suspend fun like(@PathVariable id: String) : BaseResponse<Any> = BaseResponse(service.like(id))
 
     @PostMapping("/{id}/addTag")
-    suspend fun addTag(@PathVariable id: String, tag: Tag) : BaseResponse<Any> = BaseResponse(service.addTag(id, tag))
+    suspend fun addTag(@PathVariable id: String, @RequestBody tag: Tag) : BaseResponse<Any> = BaseResponse(service.addTag(id, tag))
 }

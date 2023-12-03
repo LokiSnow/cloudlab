@@ -8,7 +8,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
  */
 @DynamoDbBean
 data class Tag(
-    var description: String? = null,
+    var name: String? = null,
     var postCount: Long? = 0
 ) : BaseEntity()
 

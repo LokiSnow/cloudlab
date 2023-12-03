@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component
 @Component
 class TagRepositoryImpl : BaseRepositoryImpl<Tag>(Tag::class.java), TagRepository {
     /**
-     * set id by lower case description, and replace space to '-'
+     * set id by lower case tag name, and replace space to '-'
      */
-    override suspend fun save(entity: Tag) = mappedTable.putItem(entity.apply { id = description?.tagId() })
-
+    override suspend fun fillId(entity: Tag, incremental: Boolean): Tag  = entity.apply { id = name?.tagId() }
 }

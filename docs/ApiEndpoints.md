@@ -51,7 +51,39 @@ Returns a list of all posts(no order guarantee, just load from dynamodb).
 Adapt to dynamodb continues page solution, `last` is used to load last page
 
 - `POST /posts`: 
-Creates a new post with the provided details.
+Creates a new post with the provided details, don't add tags in this request.
+```json
+{
+    "title": "Test Sharing 3",
+    "content": "Sharing something 3",
+    "previewContent": "Sharing something 3...",
+    "categoryCode": "Sharing",
+    "author":"Loki"
+}
+```
+Response:
+ ```json
+{
+    "resultCode": "000",
+    "resultMsg": "success",
+    "content": {
+        "content": "Sharing something 3",
+        "previewContent": "Sharing something 3...",
+        "title": "Test Sharing 3",
+        "categoryCode": "Sharing",
+        "author": "Loki",
+        "tags": null,
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "id": "1701600633000001",
+        "createdTime": "2023-12-03T18:50:33.27880491",
+        "updatedTime": "2023-12-03T18:50:33.278812522",
+        "logicDeleted": false,
+        "version": 0
+    }
+}
+```
 
 - `GET /posts/{id}`: 
 Returns the details of the post with the specified ID.
@@ -71,6 +103,22 @@ Increases the number of likes of the post with the specified ID by 1.
 
 - `POST /posts/{id}/addTag`:
 add tags for posts
+Request:
+```json
+{
+    "id": "aws",
+    "name": "Aws"
+}
+```
+
+- `Post /posts/search`:
+Search by key fields
+```json
+{
+    "title": "aws"
+}
+```
+
 
 --- 
 ## Category endpoints
@@ -82,7 +130,7 @@ Returns a list of all categories.
 Creates a new category with the provided details.
 ```json
 {
-    "name": "Technology",
+    "code": "Technology",
     "description": "Articles about technology and gadgets"
 }
 ```
@@ -101,7 +149,12 @@ Returns a list of all tags.
 
 - `POST /tags`: 
 Creates a new tag with the provided details.
-
+the tag ID will be lower case tag name, and replace space to '-'
+```json
+{
+    "name": "Aws"
+}
+```
 - `GET /tags/{id}`: 
 Returns the details of the tag with the specified ID.
 

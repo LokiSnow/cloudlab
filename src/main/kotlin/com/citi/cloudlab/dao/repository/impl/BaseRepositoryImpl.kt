@@ -41,7 +41,7 @@ open class BaseRepositoryImpl<T: BaseEntity>(
 
     override suspend fun save(entity: T, incremental: Boolean) = mappedTable.putItem(fillId(entity, incremental))
 
-    private suspend fun fillId(entity: T, incremental: Boolean): T {
+    protected open suspend fun fillId(entity: T, incremental: Boolean): T {
         entity.apply {
             id = if (incremental)
                 loadAtomicId()
