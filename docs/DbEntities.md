@@ -45,9 +45,10 @@ erDiagram
             string id
             string title
             string content
+            string previewContent
             string category
             string author
-            List Topics
+            List Tags
             Integer views
             Integer likes
             Integer comments
