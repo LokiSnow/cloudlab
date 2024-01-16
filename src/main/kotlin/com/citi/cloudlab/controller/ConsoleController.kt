@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestController
 class ConsoleController {
 
     @GetMapping("/dashboard")
-    suspend fun dashboard() :BaseResponse<Any> = BaseResponse("Hello World!")
+    suspend fun dashboard() :BaseResponse<Any> = BaseResponse("Hello World! test")
 }
