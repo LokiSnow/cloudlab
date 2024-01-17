@@ -11,14 +11,37 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
+import org.springframework.security.config.web.server.ServerHttpSecurity
+import org.springframework.security.web.server.SecurityWebFilterChain
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 import org.springframework.web.server.WebFilter
 import reactor.core.publisher.Mono
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["com.citi.cloudlab"])
 @Import(DynamodbConfiguration::class)
+@EnableWebFluxSecurity
 class CloudlabApplication {
 
     private val logger = LoggerFactory.getLogger(javaClass)
+
+    /**
+     * webflux have to use securityWebFilterChain to set up cors
+     */
+    @Bean
+    fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.allowCredentials = true
+        config.addAllowedOriginPattern("*")
+
+        config.addAllowedHeader("*")
+        config.addAllowedMethod("*")
+        source.registerCorsConfiguration("/**", config)
+        http.cors().configurationSource(source)
+        return http.build()
+    }
 
     @Bean
     fun controllerDigestLogger() : WebFilter = WebFilter { exchange, chain ->
@@ -30,10 +53,10 @@ class CloudlabApplication {
 
         exchange.response.beforeCommit {
             var resp = exchange.response
-            logger.info("[({},{},{}ms)({})({})]",
+            logger.info("[({},{},{}ms)({})(h-{})({})]",
                 method, request.path,
                 stopWatch.time,
-                request.queryParams, resp.statusCode)
+                request.queryParams, resp.headers, resp.statusCode)
             Mono.empty()
         }
 
