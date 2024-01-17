@@ -5,6 +5,8 @@ spring:
     name: cloudlab
   profiles:
     active: ${PROFILE:dev}
+  webflux:
+    base-path: /cloudlab
 logging:
   file:
     path: ${LOG_PATH:/data/logs}
