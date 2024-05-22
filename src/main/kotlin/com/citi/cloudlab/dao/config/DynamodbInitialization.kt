@@ -19,8 +19,7 @@ open class DynamodbInitialization(
     val ddb: DynamoDbEnhancedClient,
     val ddc: DynamoDbClient
 ) {
-    init {
-        val tableNames = ddc.listTables().tableNames()
+    init { val tableNames = ddc.listTables().tableNames()
         ClassPathScanningCandidateComponentProvider(false).apply {
             addIncludeFilter(AnnotationTypeFilter(DynamoDbBean::class.java))
             findCandidateComponents("com.citi.cloudlab.dao.model")

@@ -27,10 +27,13 @@ val okHttpVersion = "5.0.0-alpha.10" //aws sdk kotlin requires OkHttp 5.0.0-alph
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    //implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("software.amazon.awssdk:dynamodb")
     implementation("software.amazon.awssdk:dynamodb-enhanced")
+    implementation("com.amazonaws.serverless:aws-serverless-java-container-springboot3:[2.0-SNAPSHOT,)") {
+        exclude("org.springframework.boot:spring-boot-starter-tomcat")
+    }
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -69,8 +72,22 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.bootJar{
+/*tasks.bootJar{
     archiveName = "runner.jar"
+}*/
+
+val zip = tasks.create<Zip>("zip"){
+    from(tasks.processResources)
+    from(tasks.compileKotlin)
+    from(configurations.runtimeClasspath) {
+        into("lib")
+    }
+
+    archiveFileName.set("cloudlab.zip")
+}
+
+tasks.build {
+    dependsOn(zip)
 }
 
 //@See https://github.com/Kotlin/dokka/tree/master/examples/gradle

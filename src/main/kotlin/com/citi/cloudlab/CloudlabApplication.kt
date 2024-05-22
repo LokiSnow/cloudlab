@@ -11,38 +11,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
-import org.springframework.security.config.web.server.ServerHttpSecurity
-import org.springframework.security.web.server.SecurityWebFilterChain
-import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
+import org.springframework.web.reactive.config.CorsRegistry
+import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.server.WebFilter
 import reactor.core.publisher.Mono
 
 @SpringBootApplication(scanBasePackages = ["com.citi.cloudlab"])
 @Import(DynamodbConfiguration::class)
-@EnableWebFluxSecurity
-class CloudlabApplication {
+//@EnableWebFluxSecurity
+class CloudlabApplication : WebFluxConfigurer {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    /**
-     * webflux have to use securityWebFilterChain to set up cors
-     */
-    @Bean
-    fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
-        val source = UrlBasedCorsConfigurationSource()
-        val config = CorsConfiguration()
-        config.allowCredentials = true
-        config.addAllowedOriginPattern("*")
-
-        config.addAllowedHeader("*")
-        config.addAllowedMethod("*")
-        source.registerCorsConfiguration("/**", config)
-        http.cors().configurationSource(source)
-        return http.build()
+    override fun addCorsMappings(registry: CorsRegistry) {
+        registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("*")
     }
-
     @Bean
     fun controllerDigestLogger() : WebFilter = WebFilter { exchange, chain ->
         val request = exchange.request

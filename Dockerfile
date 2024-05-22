@@ -1,8 +1,8 @@
 FROM amazoncorretto:17-alpine as builder
 
 WORKDIR /app
-COPY build/libs/runner.jar /app/
-RUN java -Djarmode=layertools -jar runner.jar extract
+COPY build/libs/cloudlab-0.0.1-SNAPSHOT.jar /app/
+RUN java -Djarmode=layertools -jar cloudlab-0.0.1-SNAPSHOT.jar extract
 
 ##################################
 
@@ -23,5 +23,4 @@ ENV SERVER_PORT=8089 \
     PROFILE=dev \
 	LOG_PATH=/data/logs/cloudlab \
     TZ=Asia/Shanghai
-
 ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]

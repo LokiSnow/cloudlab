@@ -1,0 +1,59 @@
+<configuration>
+	<property name="DEFAULT_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%X{ctxLogId}][%t] %-40.40logger{39} : %m%n" />
+	<property name="DIGEST_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%X{ctxLogId}][%t] - %msg%n" />
+	<property name="SERVICE_DIGEST_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%X{ctxLogId}][%t] - %msg%n" />
+	<property name="STAT_PATTERN" value="%d - %msg%n" />
+	<property name="LEVEL" value="DEBUG" />
+	<property name="LEVEL_DIGEST" value="${LEVEL}" />
+	<property name="CHARSET" value="UTF-8" />
+    
+    <!-- Appenders -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>${CHARSET}</charset>
+        </encoder>
+    </appender>
+    <!-- Loggers -->
+    
+    <!-- Loggers : Digest -->
+    <logger name="DAO-DIGEST-LOGGER" level="${LEVEL_DIGEST}"
+        additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="SERVICE-DIGEST-LOGGER" level="${LEVEL_DIGEST}"
+        additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Loggers : App Details -->
+    <logger name="com.citi.cloudlab" level="${LEVEL}"
+        additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="software.amazon.awssdk.services.dynamodb" level="${LEVEL}" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    
+    <logger name="software.amazon.awssdk.enhanced.dynamodb" level="${LEVEL}" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Loggers : misc -->
+    <logger name="org.springframework" level="${LEVEL}" additivity="false">
+        <appender-ref ref="DEFAULT" />
+        <appender-ref ref="ERROR" />
+    </logger>
+    
+    <logger name="org.springframework.boot.web.embedded.netty"
+        level="${LEVEL}" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Loggers : Root Logger -->
+    <root level="${LEVEL}">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
