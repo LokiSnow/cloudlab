@@ -23,11 +23,11 @@ class BasicDigestLogInterceptor(
     private val logger = LoggerFactory.getLogger(loggerName ?: javaClass.simpleName)
 
     /**
-     * 按以下格式输出摘要日志：
+     * format：
      *
-     * [(短类名.方法名,成功与否,耗时ms)(参数)(结果)]
+     * [(simpleName.methodName,result,consuming time in ms)(arguments)(results)]
      *
-     * 如果printArguments为true，会输出参数，否则不输出
+     * set printArguments=true will print arguments, by default is false
      *
      */
     override fun invoke(invocation: MethodInvocation): Any? {
@@ -52,7 +52,7 @@ class BasicDigestLogInterceptor(
     }
 
     /**
-     * 获取日志中使用的方法参数
+     * simply join arguments by string util
      */
     private fun getArgumentsString(invocation: MethodInvocation): String {
         var arguments = "-"
@@ -64,7 +64,7 @@ class BasicDigestLogInterceptor(
     }
 
     /**
-     * 获取结果内容
+     * simply return result string
      */
     private fun getResultsString(retValue: Any?): Any {
         return if (printResults == true) {
